@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTable } from "react-table";
-import { useNavigate } from "react-router-dom";
+import { Details } from "../../components/modal/details-modal";
 
 export const Proyectos = () => {
-  const history = useNavigate();
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const projects = [
     {
@@ -72,7 +73,9 @@ export const Proyectos = () => {
         accessor: "actions",
         Cell: ({ row }) => (
           <>
-            <button onClick={() => handleDetails(row.original)}>Detalle</button>
+            <button onClick={() => handleDetails(row.original)}>
+              Detalles
+            </button>
           </>
         ),
       },
@@ -81,7 +84,8 @@ export const Proyectos = () => {
   );
 
   const handleDetails = (project) => {
-    history(`/details/${project.id}`);
+    setSelectedProject(project);
+    setIsOpen(true);
   };
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -113,6 +117,13 @@ export const Proyectos = () => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
+          {selectedProject && (
+            <Details
+              modalIsOpen={modalIsOpen}
+              setIsOpen={setIsOpen}
+              project={selectedProject}
+            />
+          )}
           {rows.map((row) => {
             prepareRow(row);
             return (

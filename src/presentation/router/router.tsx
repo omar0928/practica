@@ -1,5 +1,5 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import { Proyectos, Detalles } from "../pages";
+import { Proyectos } from "../pages";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 
 export const menuRoutes = [
@@ -9,13 +9,6 @@ export const menuRoutes = [
     title: "proyectos",
     description: "todos los proyectos",
     component: <Proyectos />,
-  },
-  {
-    to: "/detalles/:id",
-    icon: "fa-sharp fa-solid fa-circle-info",
-    title: "Detalles",
-    description: "Detalles de el proyecto",
-    component: <Detalles />,
   },
 ];
 
